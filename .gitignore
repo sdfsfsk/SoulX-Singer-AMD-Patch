@@ -1,0 +1,15 @@
+runtime-rocm/
+pretrained_models/
+ffmpeg/
+outputs/
+.hf-cache/
+__pycache__/
+*.pyc
+*.pt
+*.ckpt
+*.safetensors
+*.wav
+*.mp3
+*.flac
+*.log
+
