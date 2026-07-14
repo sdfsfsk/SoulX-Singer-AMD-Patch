@@ -14,6 +14,13 @@ index 7f333fa..d513303 100644
  
  
  ## 🚧 Roadmap
+@@ -253,4 +258,4 @@ We welcome your feedback, questions, and collaboration:
+   <!-- <span style="display: inline-block;">
+     <img src="assets/wechat_tiamo.jpg" width="300" alt="WeChat QR Code"/>
+   </span> -->
+-</p>
+\ No newline at end of file
++</p>
 diff --git a/cli/inference_svc.py b/cli/inference_svc.py
 index 8372b50..ed51927 100644
 --- a/cli/inference_svc.py
@@ -140,6 +147,13 @@ index d81280b..b4e8899 100644
  
      try:
          mix, sr = sf.read(path)
+@@ -126,4 +132,4 @@ def draw_spectrogram(waveform: np.ndarray, sample_rate: int, length: float, outp
+     ax.set(title='File: ' + os.path.basename(output_file))
+     fig.colorbar(img, ax=ax, format="%+2.f dB")
+     if output_file is not None:
+-        plt.savefig(output_file)
+\ No newline at end of file
++        plt.savefig(output_file)
 diff --git a/preprocess/tools/vocal_separation/utils/model_utils.py b/preprocess/tools/vocal_separation/utils/model_utils.py
 index c4149de..f608307 100644
 --- a/preprocess/tools/vocal_separation/utils/model_utils.py
@@ -362,6 +376,13 @@ index 1cfbe62..edc9580 100644
      
          return generated_audio, pitch_shift
  
+@@ -336,4 +351,4 @@ class SoulXSingerSVC(nn.Module):
+         elif generated_audio.shape[-1] < gt_wav.shape[-1]:
+             generated_audio = F.pad(generated_audio, (0, gt_wav.shape[-1] - generated_audio.shape[-1]))
+ 
+-        return generated_audio
+\ No newline at end of file
++        return generated_audio
 diff --git a/soulxsinger/utils/audio_utils.py b/soulxsinger/utils/audio_utils.py
 index bca06ac..fbbc3c0 100644
 --- a/soulxsinger/utils/audio_utils.py
@@ -405,7 +426,7 @@ index 48c8cfc..13f0c98 100644
 -    page.launch(share=args.share, server_name="0.0.0.0", server_port=args.port)
 +    page.launch(share=args.share, server_name="127.0.0.1", server_port=args.port)
 diff --git a/webui_svc.py b/webui_svc.py
-index 52fe0c4..87b9f64 100644
+index 52fe0c4..98da67b 100644
 --- a/webui_svc.py
 +++ b/webui_svc.py
 @@ -1,10 +1,14 @@
@@ -686,7 +707,15 @@ index 52fe0c4..87b9f64 100644
  
  
  def render_interface() -> gr.Blocks:
-@@ -378,6 +536,8 @@ def render_interface() -> gr.Blocks:
+@@ -371,13 +529,15 @@ def render_interface() -> gr.Blocks:
+ 			pitch_shift = gr.Slider(label=_i18n("pitch_shift_label"), value=0, minimum=-36, maximum=36, step=1, scale=1)
+ 			n_step = gr.Slider(label=_i18n("n_step_label"), value=32, minimum=1, maximum=200, step=1, scale=1)
+ 			cfg = gr.Slider(label=_i18n("cfg_label"), value=1.0, minimum=0.0, maximum=10.0, step=0.1, scale=1)
+-			seed_input = gr.Slider(label=_i18n("seed_label"), value=42, minimum=0, maximum=10000, step=1, scale=1)
++			seed_input = gr.Slider(label=_i18n("seed_label"), value=42, minimum=0, maximum=4294967295, step=1, scale=1)
+ 
+ 		with gr.Row():
+ 			run_btn = gr.Button(value=_i18n("run_btn"), variant="primary", size="lg")
  
  		with gr.Row():
  			output_audio = gr.Audio(label=_i18n("output_audio_label"), type="filepath", interactive=False)

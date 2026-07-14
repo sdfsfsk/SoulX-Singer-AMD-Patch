@@ -11,6 +11,7 @@
 - 优先使用本地 `openai-whisper-base`，离线环境仍可启动。
 - 为 SoulX-SVC 增加 Prompt/Target/F0 和逐分段推理进度回调。
 - 暴露 `/soulx_svc_convert` 与本机路径接口 `/soulx_svc_convert_path`，供 SVCVC 中间层调用。
+- 将 SoulX-SVC 的种子输入扩展到完整无符号 32 位范围 `0～4294967295`，与插件和中间层保持一致。
 - 限制 SVC 会话输出保留数量，并保护正在运行及正在返回的结果。
 - WebUI 仅绑定 `127.0.0.1`，启动脚本安全清理旧端口。
 - 提供不覆盖 AMD PyTorch/ROCm 的依赖清单。
